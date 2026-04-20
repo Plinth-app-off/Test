@@ -2,6 +2,16 @@
 
 Construction finance / account-book web app. Multi-user, Supabase-backed.
 
+## Deployment
+
+- **GitHub repo:** https://github.com/Plinth-app-off/Test (branch: `main`)
+- **Vercel project:** `test` — team `plinthforlogins-3504s-projects`
+- **Production URL:** https://test-plinthforlogins-3504s-projects.vercel.app
+- **Vercel env vars required at build time** (set in Vercel → Settings → Environment Variables, all environments):
+  - `VITE_SUPABASE_URL` — Supabase project URL
+  - `VITE_SUPABASE_ANON_KEY` — Supabase anon key (safe to expose; RLS enforces per-user access)
+- Vite bakes these into the bundle at build time — missing vars = blank screen (createClient throws)
+
 ## Tech Stack
 
 - **React 18 + Vite** (JSX, no TypeScript)
