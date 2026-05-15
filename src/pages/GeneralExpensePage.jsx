@@ -114,15 +114,7 @@ export default function GeneralExpensePage() {
           </span>
         </div>
       </div>
-      <div
-        style={{
-          padding: '22px 28px 40px',
-          display: 'grid',
-          gridTemplateColumns: '420px 1fr',
-          gap: 28,
-          alignItems: 'start',
-        }}
-      >
+      <div className="log-layout">
         <div className="card">
           <div className="card-head">
             <h3>New overhead</h3>
@@ -254,14 +246,15 @@ export default function GeneralExpensePage() {
               ))}
             </select>
           </div>
-          <table className="table">
+          <div className="table-scroll">
+          <table className="table entry-table">
             <thead>
               <tr>
                 <th style={{ width: 80 }}>Date</th>
                 <th>Category</th>
-                <th>Client</th>
-                <th>Description</th>
-                <th style={{ width: 50 }}>Rcpt</th>
+                <th className="col-client">Client</th>
+                <th className="col-desc">Description</th>
+                <th className="col-rcpt" style={{ width: 50 }}>Rcpt</th>
                 <th style={{ width: 120, textAlign: 'right' }}>Amount</th>
                 <th style={{ width: 30 }}></th>
               </tr>
@@ -275,38 +268,25 @@ export default function GeneralExpensePage() {
                       {fmtDate(e.date)}
                     </td>
                     <td>
-                      <span
-                        className="cat-badge"
-                        style={{ '--cat-color': catColor(e.category) }}
-                      >
+                      <span className="cat-badge" style={{ '--cat-color': catColor(e.category) }}>
                         {e.category}
                       </span>
+                      <div className="col-client" style={{ marginTop: 2, fontFamily: 'var(--mono)', fontSize: 9.5, color: 'var(--ink-3)' }}>
+                        {c ? c.short : 'site-wide'}
+                      </div>
                     </td>
-                    <td>
+                    <td className="col-client">
                       {c ? (
-                        <span
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: 5,
-                          }}
-                        >
-                          <span
-                            style={{
-                              width: 7,
-                              height: 7,
-                              background: c.color,
-                              borderRadius: '50%',
-                            }}
-                          />
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                          <span style={{ width: 7, height: 7, background: c.color, borderRadius: '50%' }} />
                           {c.short}
                         </span>
                       ) : (
                         <span className="muted italic">site-wide</span>
                       )}
                     </td>
-                    <td style={{ color: 'var(--ink-2)' }}>{e.description}</td>
-                    <td>
+                    <td className="col-desc" style={{ color: 'var(--ink-2)' }}>{e.description}</td>
+                    <td className="col-rcpt">
                       <ReceiptThumb src={e.receipt_url} />
                     </td>
                     <td className="num">
@@ -328,6 +308,7 @@ export default function GeneralExpensePage() {
               })}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </>

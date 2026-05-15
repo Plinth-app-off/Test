@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Sidebar from './components/Sidebar.jsx';
+import MobileNav from './components/MobileNav.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import LogExpensePage from './pages/LogExpensePage.jsx';
 import GeneralExpensePage from './pages/GeneralExpensePage.jsx';
@@ -69,6 +70,13 @@ export default function App() {
   return (
     <div className="app" data-screen-label={'Plinth · ' + page}>
       <Sidebar
+        page={page}
+        setPage={setPage}
+        onSignOut={onSignOut}
+        userEmail={user.email}
+        companyName={companyName}
+      />
+      <MobileNav
         page={page}
         setPage={setPage}
         onSignOut={onSignOut}
