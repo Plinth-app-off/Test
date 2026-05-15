@@ -390,3 +390,153 @@ body.printing .app { display: none; }
 .print-report .pr-sign { margin-top: 48px; display: flex; justify-content: flex-end; }
 .print-report .pr-sign .line { border-top: 1px solid #1a1511; padding-top: 6px; width: 220px; text-align: center; font-family: var(--serif); font-style: italic; font-size: 12px; color: #5a5146; }
 .print-report .pr-empty { font-family: var(--serif); font-style: italic; color: #7a6f58; font-size: 12px; padding: 6px 0 4px; }
+
+/* ─── Log / General layout (form + table side-by-side on desktop) ── */
+.log-layout {
+  padding: 22px 28px 40px;
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* ─── Mobile Nav Components (hidden on desktop) ─────────────────── */
+.mobile-appbar {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  height: 52px; padding: 0 16px;
+  background: linear-gradient(90deg, color-mix(in oklab, var(--accent) 5%, var(--paper)), var(--paper));
+  border-bottom: 1px solid var(--rule);
+  align-items: center; gap: 10px;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.mobile-brand {
+  font-family: var(--serif); font-weight: 600; font-size: 18px;
+  letter-spacing: -0.02em; color: var(--ink);
+}
+.mobile-folio {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em;
+  color: var(--coral-ink); text-transform: uppercase; font-weight: 500;
+}
+.mobile-icon-btn {
+  background: none; border: none; cursor: pointer; padding: 6px;
+  color: var(--ink-2); display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius); line-height: 0;
+}
+.mobile-icon-btn:hover { background: var(--paper-3); color: var(--ink); }
+.mobile-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent); color: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-weight: 600; font-size: 12px;
+}
+
+.mobile-tabbar {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+  height: 64px; padding: 0 6px env(safe-area-inset-bottom, 0);
+  background: var(--paper-2); border-top: 1px solid var(--rule);
+  align-items: center; justify-content: space-around;
+}
+.mobile-tab {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; background: none; border: none; cursor: pointer; padding: 6px 4px;
+  color: var(--ink-3); font-family: var(--sans); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.mobile-tab.active { color: var(--accent); }
+.mobile-tab.active svg { stroke: var(--accent); }
+.mobile-fab-wrap {
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  padding: 0 6px; margin-top: -20px;
+}
+.mobile-fab {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--accent); color: var(--paper); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(31, 60, 110, 0.38);
+  transition: transform .12s, box-shadow .12s;
+}
+.mobile-fab:active { transform: scale(0.94); box-shadow: 0 2px 8px rgba(31, 60, 110, 0.22); }
+.mobile-fab.active { background: color-mix(in oklab, var(--accent) 85%, black); }
+
+/* ─── Mobile Responsive ≤768px ──────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Show mobile nav */
+  .mobile-appbar { display: flex; }
+  .mobile-tabbar { display: flex; }
+
+  /* Layout: collapse sidebar */
+  .app { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main { padding-top: 52px; padding-bottom: 64px; min-height: 100vh; }
+
+  /* Page head: compact */
+  .page-head { padding: 14px 16px 10px; gap: 12px; }
+  .page-head h1 { font-size: 22px; }
+  .page-head p.lede { font-size: 12px; }
+  .page-head-right { display: none; }
+
+  /* Filter bar: compact */
+  .filter-bar { padding: 8px 16px; gap: 10px; }
+  .filter-tab { padding: 4px 9px; }
+
+  /* Stat strip: 2×2 grid */
+  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  .stat-strip .stat:nth-child(2) { border-right: 0; }
+  .stat-strip .stat:nth-child(3) { border-top: 1px solid var(--rule); }
+  .stat-strip .stat:nth-child(4) { border-top: 1px solid var(--rule); border-right: 0; }
+  .stat { padding: 12px 16px 12px 20px; }
+  .stat .v { font-size: 22px; }
+  .stat .sub { font-size: 10px; }
+
+  /* Grid wrap: smaller padding, ledger scrolls horizontally */
+  .grid-wrap { padding: 12px 12px 32px; }
+  .ledger { min-width: 560px; }
+
+  /* Form grid: single column */
+  .form-grid { grid-template-columns: 1fr; gap: 10px 0; }
+  .form-full { grid-column: auto; }
+
+  /* Cards */
+  .card-head { padding: 10px 14px; }
+
+  /* Tables */
+  .table td { padding: 8px 10px; font-size: 12px; }
+  .table th { padding: 8px 10px; }
+
+  /* Modal → bottom sheet */
+  .modal-overlay { padding: 0; align-items: flex-end; padding-top: 52px; }
+  .modal { max-width: 100%; border-radius: 16px 16px 0 0; box-shadow: 0 -8px 32px rgba(20, 14, 8, 0.22); }
+  .modal-head { padding: 14px 16px 10px; }
+  .modal-head h2 { font-size: 18px; }
+  .modal-body { padding: 14px 16px 20px; }
+  .form-footer { padding: 10px 16px; }
+
+  /* Stats row in modals: 2×2 */
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .stats-row .stat:nth-child(2) { border-right: 0; }
+  .stats-row .stat:nth-child(3) { border-top: 1px solid var(--rule); }
+  .stats-row .stat:nth-child(4) { border-top: 1px solid var(--rule); border-right: 0; }
+
+  /* Log / General two-column → single column */
+  .log-layout {
+    grid-template-columns: 1fr;
+    padding: 12px 16px 32px;
+    gap: 16px;
+  }
+
+  /* Entry tables: scrollable, hide non-essential columns on mobile */
+  .entry-table { min-width: 420px; }
+  .entry-table th.col-client,
+  .entry-table td.col-client,
+  .entry-table th.col-desc,
+  .entry-table td.col-desc,
+  .entry-table th.col-rcpt,
+  .entry-table td.col-rcpt { display: none; }
+
+  /* Dashboard filter bar: scrollable if too wide */
+  .filter-bar { overflow-x: auto; flex-wrap: nowrap; }
+  .filter-bar .toggle { flex-shrink: 0; }
+}
