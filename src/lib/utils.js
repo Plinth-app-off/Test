@@ -11,7 +11,7 @@ export const fmtDate = (s) => {
   });
 };
 
-export const today = () => new Date().toISOString().slice(0, 10);
+export const today = () => iso(new Date());
 
 export const daysBetween = (a, b) =>
   Math.round((new Date(b) - new Date(a)) / 86400000);
@@ -23,7 +23,12 @@ export const withinRange = (d, f) => {
   return true;
 };
 
-export const iso = (d) => d.toISOString().slice(0, 10);
+export const iso = (d) => {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+};
 export const parseISO = (s) => (s ? new Date(s + 'T00:00:00') : null);
 export const startOfMonth = (d) => new Date(d.getFullYear(), d.getMonth(), 1);
 export const addMonths = (d, n) =>
