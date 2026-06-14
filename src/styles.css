@@ -1,11 +1,11 @@
 :root {
   --paper: #f3ede0; --paper-2: #ebe3d3; --paper-3: #e2d8c4;
   --rule: #d6cab2; --rule-soft: #e4dac4;
-  --ink: #181512; --ink-2: #5a5146; --ink-3: #8c826f; --ink-4: #b3a78c;
-  --red-ink: #c9341e; --green-ink: #2f7a3a; --amber-ink: #d4901a;
-  --purple-ink: #7446a8; --teal-ink: #1a8a8a; --coral-ink: #e56a3e;
+  --ink: #181512; --ink-2: #463f35; --ink-3: #6e6453; --ink-4: #8a7c61;
+  --red-ink: #bf2f1b; --green-ink: #2a6f34; --amber-ink: #8a5e0f;
+  --purple-ink: #6a3f9c; --teal-ink: #147272; --coral-ink: #bd4a20;
   --accent: #1f3c6e; --accent-soft: #d6dde9; --stamp: #c9341e;
-  --sans: 'Inter Tight', system-ui, -apple-system, sans-serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --serif: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --radius: 2px;
@@ -14,7 +14,7 @@
 html, body { margin: 0; padding: 0; }
 body {
   font-family: var(--sans); color: var(--ink); background: var(--paper);
-  font-size: 13px; line-height: 1.45;
+  font-size: 13px; line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   background-image:
     radial-gradient(rgba(90,60,20,0.025) 1px, transparent 1px),
