@@ -127,7 +127,8 @@ export default function VendorsPage() {
               {d.vendors.map((v) => {
                 const given = d.getVendorTotal(v.id, null);
                 const paid = d.getVendorPaid(v.id);
-                const net = given - paid;
+                const roundoff = d.getVendorRoundoff(v.id);
+                const net = given - paid - roundoff;
                 const tc = tradeColor(v.trade);
                 return (
                   <tr key={v.id}>
@@ -251,7 +252,8 @@ export default function VendorsPage() {
               .sort((a, b) => b.date.localeCompare(a.date));
             const given = rows.reduce((a, b) => a + b.amount, 0);
             const paid = d.getVendorPaid(history.id);
-            const net = given - paid;
+            const roundoff = d.getVendorRoundoff(history.id);
+            const net = given - paid - roundoff;
             const payRows = d.vendorPayments
               .filter((p) => p.vendor_id === history.id)
               .sort((a, b) => b.date.localeCompare(a.date));
@@ -297,7 +299,7 @@ export default function VendorsPage() {
                 <div className="modal-body">
                   <div
                     className="stats-row"
-                    style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}
+                    style={{ gridTemplateColumns: roundoff ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}
                   >
                     <div className="stat">
                       <div className="k">Supplied</div>
@@ -313,6 +315,15 @@ export default function VendorsPage() {
                         {fmt(paid)}
                       </div>
                     </div>
+                    {roundoff ? (
+                      <div className="stat">
+                        <div className="k">Roundoff</div>
+                        <div className="v">
+                          <Rupee />
+                          {fmt(roundoff)}
+                        </div>
+                      </div>
+                    ) : null}
                     <div className="stat">
                       <div className="k">
                         {net > 0 ? 'Still Owed' : net < 0 ? 'Overpaid' : 'Settled'}
