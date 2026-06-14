@@ -29,6 +29,7 @@ export default function VendorPaymentsPage() {
     vendor_id: d.vendors[0]?.id || '',
     client_id: '',
     amount: '',
+    roundoff: '',
     date: today(),
     note: '',
   });
@@ -40,9 +41,10 @@ export default function VendorPaymentsPage() {
     await d.addVendorPayment({
       ...form,
       amount: amt,
+      roundoff: Number.parseFloat(form.roundoff) || 0,
       client_id: form.client_id || null,
     });
-    setForm((prev) => ({ ...prev, amount: '', note: '' }));
+    setForm((prev) => ({ ...prev, amount: '', roundoff: '', note: '' }));
   };
 
   const rows = applyFilter(d.vendorPayments, entryFilter);
@@ -110,6 +112,15 @@ export default function VendorPaymentsPage() {
                   placeholder="0"
                   value={form.amount}
                   onChange={(e) => setForm({ ...form, amount: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label className="label">Roundoff (₹)</label>
+                <input
+                  className="input serif-num"
+                  placeholder="0"
+                  value={form.roundoff}
+                  onChange={(e) => setForm({ ...form, roundoff: e.target.value })}
                 />
               </div>
               <div className="form-group">
@@ -181,6 +192,7 @@ export default function VendorPaymentsPage() {
                 <th>Vendor</th>
                 <th>Client</th>
                 <th>Note</th>
+                <th style={{ width: 90, textAlign: 'right' }}>Roundoff</th>
                 <th style={{ width: 120, textAlign: 'right' }}>Amount</th>
                 <th style={{ width: 30 }}></th>
               </tr>
@@ -199,6 +211,16 @@ export default function VendorPaymentsPage() {
                       {c ? c.short : <span className="muted italic">—</span>}
                     </td>
                     <td style={{ color: 'var(--ink-2)' }}>{p.note}</td>
+                    <td className="num">
+                      {p.roundoff ? (
+                        <>
+                          <Rupee />
+                          {fmt(p.roundoff)}
+                        </>
+                      ) : (
+                        <span className="muted">—</span>
+                      )}
+                    </td>
                     <td className="num">
                       <Rupee />
                       {fmt(p.amount)}

@@ -243,6 +243,10 @@ export function DataProvider({ children }) {
       vendorPayments
         .filter((p) => p.vendor_id === vid)
         .reduce((a, b) => a + b.amount, 0),
+    getVendorRoundoff: (vid) =>
+      vendorPayments
+        .filter((p) => p.vendor_id === vid)
+        .reduce((a, b) => a + (Number(b.roundoff) || 0), 0),
     getClientAllExpenses: (cid) => ({
       vendor: expenses.filter((e) => e.client_id === cid),
       general: generalExpenses.filter((e) => e.client_id === cid),
