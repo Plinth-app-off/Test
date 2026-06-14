@@ -11,8 +11,8 @@ export default function Sidebar({ page, setPage, userEmail = '', onSignOut, comp
   const items = [
     { id: 'dashboard', label: 'Ledger', icon: Icons.Dashboard, count: null },
     { id: 'log', label: 'Log Expense', icon: Icons.FilePlus, count: d.expenses.length },
-    { id: 'general', label: 'General Expenses', icon: Icons.Receipt, count: d.generalExpenses.length },
     { id: 'payments', label: 'Vendor Payments', icon: Icons.CreditCard, count: d.vendorPayments.length },
+    { id: 'general', label: 'General Expenses', icon: Icons.Receipt, count: d.generalExpenses.length },
     { id: 'clients', label: 'Clients', icon: Icons.Users, count: d.clients.length },
     { id: 'vendors', label: 'Vendors', icon: Icons.HardHat, count: d.vendors.length },
   ];
