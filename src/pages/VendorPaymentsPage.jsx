@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useData } from '../contexts/DataContext.jsx';
-import { fmt, fmtDate, today } from '../lib/utils.js';
+import { fmt, fmtDate, today, iso } from '../lib/utils.js';
 import { Rupee, Icons } from '../lib/icons.jsx';
 import Select from '../components/Select.jsx';
 import DatePicker from '../components/DatePicker.jsx';
@@ -18,8 +18,8 @@ function applyFilter(rows, key) {
   if (key === 'all') return sorted;
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - Number.parseInt(key, 10));
-  const iso = cutoff.toISOString().slice(0, 10);
-  return sorted.filter((e) => e.date >= iso);
+  const cutoffISO = iso(cutoff);
+  return sorted.filter((e) => e.date >= cutoffISO);
 }
 
 export default function VendorPaymentsPage() {

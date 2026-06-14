@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { today } from './utils.js';
 
 const BRAND = 'Plinth';
 const MONO = 'courier';
@@ -73,7 +74,7 @@ export function exportExpensesPDF({ expenses, vendors, clients, filterLabel = 'A
   });
 
   footer(doc);
-  doc.save(`expenses_${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`expenses_${today()}.pdf`);
 }
 
 export function exportGeneralExpensesPDF({ expenses, clients, filterLabel = 'All entries' }) {
@@ -106,7 +107,7 @@ export function exportGeneralExpensesPDF({ expenses, clients, filterLabel = 'All
   });
 
   footer(doc);
-  doc.save(`overhead_${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`overhead_${today()}.pdf`);
 }
 
 export function exportPaymentsPDF({ payments, vendors, clients, filterLabel = 'All entries' }) {
@@ -140,7 +141,7 @@ export function exportPaymentsPDF({ payments, vendors, clients, filterLabel = 'A
   });
 
   footer(doc);
-  doc.save(`payments_${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`payments_${today()}.pdf`);
 }
 
 export function exportVendorPDF({ vendor, expenses, payments, clients, periodLabel, companyName = '', userEmail = '' }) {
@@ -280,5 +281,5 @@ export function exportVendorPDF({ vendor, expenses, payments, clients, periodLab
   footer(doc);
 
   const safeName = (vendor?.name || 'all-vendors').replace(/\s+/g, '-').toLowerCase();
-  doc.save(`${safeName}_${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`${safeName}_${today()}.pdf`);
 }
