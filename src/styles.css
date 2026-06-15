@@ -1,10 +1,10 @@
 :root {
-  --paper: #f3ede0; --paper-2: #ebe3d3; --paper-3: #e2d8c4;
-  --rule: #d6cab2; --rule-soft: #e4dac4;
-  --ink: #181512; --ink-2: #463f35; --ink-3: #6e6453; --ink-4: #8a7c61;
-  --red-ink: #bf2f1b; --green-ink: #2a6f34; --amber-ink: #8a5e0f;
-  --purple-ink: #6a3f9c; --teal-ink: #147272; --coral-ink: #bd4a20;
-  --accent: #1f3c6e; --accent-soft: #d6dde9; --stamp: #c9341e;
+  --paper: #f4f4f2; --paper-2: #eaeae7; --paper-3: #e0e0dc;
+  --rule: #d5d5d0; --rule-soft: #e4e4e0;
+  --ink: #1a1a1c; --ink-2: #3c3c40; --ink-3: #646469; --ink-4: #8a8a90;
+  --red-ink: #c0392b; --green-ink: #256d4a; --amber-ink: #8a610f;
+  --purple-ink: #6a3f9c; --teal-ink: #0f6e72; --coral-ink: #c2502f;
+  --accent: #3a3f8f; --accent-soft: #dcdef0; --stamp: #c0392b;
   --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --serif: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -17,8 +17,8 @@ body {
   font-size: 13px; line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   background-image:
-    radial-gradient(rgba(90,60,20,0.025) 1px, transparent 1px),
-    radial-gradient(rgba(90,60,20,0.02) 1px, transparent 1px);
+    radial-gradient(rgba(40,40,55,0.022) 1px, transparent 1px),
+    radial-gradient(rgba(40,40,55,0.018) 1px, transparent 1px);
   background-size: 3px 3px, 7px 7px;
   background-position: 0 0, 1px 2px;
 }
@@ -455,10 +455,10 @@ body.printing .app { display: none; }
   width: 52px; height: 52px; border-radius: 50%;
   background: var(--accent); color: var(--paper); border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(31, 60, 110, 0.38);
+  box-shadow: 0 4px 16px rgba(58, 63, 143, 0.38);
   transition: transform .12s, box-shadow .12s;
 }
-.mobile-fab:active { transform: scale(0.94); box-shadow: 0 2px 8px rgba(31, 60, 110, 0.22); }
+.mobile-fab:active { transform: scale(0.94); box-shadow: 0 2px 8px rgba(58, 63, 143, 0.22); }
 .mobile-fab.active { background: color-mix(in oklab, var(--accent) 85%, black); }
 
 /* ─── Mobile Responsive ≤768px ──────────────────────────────────── */

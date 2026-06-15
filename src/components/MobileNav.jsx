@@ -12,11 +12,12 @@ const PAGE_LABELS = {
 };
 
 const TABS = [
-  { id: 'dashboard', Icon: Icons.Dashboard, label: 'Ledger'   },
-  { id: 'general',   Icon: Icons.Receipt,   label: 'Overhead' },
+  { id: 'dashboard', Icon: Icons.Dashboard,  label: 'Ledger' },
+  { id: 'payments',  Icon: Icons.CreditCard, label: 'Pay'    },
   null,
-  { id: 'clients',   Icon: Icons.Users,     label: 'Clients'  },
-  { id: 'vendors',   Icon: Icons.HardHat,   label: 'Trades'   },
+  { id: 'general',   Icon: Icons.Receipt,    label: 'Overhead' },
+  { id: 'clients',   Icon: Icons.Users,      label: 'Clients' },
+  { id: 'vendors',   Icon: Icons.HardHat,    label: 'Trades' },
 ];
 
 export default function MobileNav({ page, setPage, onSignOut, userEmail = '', companyName = '' }) {
@@ -53,15 +54,6 @@ export default function MobileNav({ page, setPage, onSignOut, userEmail = '', co
           align="right"
         >
           <div className="sh-list">
-            <button
-              type="button"
-              className="sh-item"
-              style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
-              onClick={() => { setMenuOpen(false); setPage('payments'); }}
-            >
-              <Icons.CreditCard size={14} />
-              <span style={{ flex: 1 }}>Settlements</span>
-            </button>
             <button
               type="button"
               className="sh-item"
