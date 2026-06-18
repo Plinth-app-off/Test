@@ -1,11 +1,11 @@
 :root {
-  --paper: #f3ede0; --paper-2: #ebe3d3; --paper-3: #e2d8c4;
-  --rule: #d6cab2; --rule-soft: #e4dac4;
-  --ink: #181512; --ink-2: #5a5146; --ink-3: #8c826f; --ink-4: #b3a78c;
-  --red-ink: #c9341e; --green-ink: #2f7a3a; --amber-ink: #d4901a;
-  --purple-ink: #7446a8; --teal-ink: #1a8a8a; --coral-ink: #e56a3e;
-  --accent: #1f3c6e; --accent-soft: #d6dde9; --stamp: #c9341e;
-  --sans: 'Inter Tight', system-ui, -apple-system, sans-serif;
+  --paper: #f4f4f2; --paper-2: #eaeae7; --paper-3: #e0e0dc;
+  --rule: #d5d5d0; --rule-soft: #e4e4e0;
+  --ink: #1a1a1c; --ink-2: #3c3c40; --ink-3: #646469; --ink-4: #8a8a90;
+  --red-ink: #c0392b; --green-ink: #256d4a; --amber-ink: #8a610f;
+  --purple-ink: #6a3f9c; --teal-ink: #0f6e72; --coral-ink: #c2502f;
+  --accent: #3a3f8f; --accent-soft: #dcdef0; --stamp: #c0392b;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --serif: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   --radius: 2px;
@@ -14,11 +14,11 @@
 html, body { margin: 0; padding: 0; }
 body {
   font-family: var(--sans); color: var(--ink); background: var(--paper);
-  font-size: 13px; line-height: 1.45;
+  font-size: 13px; line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   background-image:
-    radial-gradient(rgba(90,60,20,0.025) 1px, transparent 1px),
-    radial-gradient(rgba(90,60,20,0.02) 1px, transparent 1px);
+    radial-gradient(rgba(40,40,55,0.022) 1px, transparent 1px),
+    radial-gradient(rgba(40,40,55,0.018) 1px, transparent 1px);
   background-size: 3px 3px, 7px 7px;
   background-position: 0 0, 1px 2px;
 }
@@ -441,25 +441,13 @@ body.printing .app { display: none; }
 }
 .mobile-tab {
   flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 3px; background: none; border: none; cursor: pointer; padding: 6px 4px;
-  color: var(--ink-3); font-family: var(--sans); font-size: 9.5px; font-weight: 500;
-  letter-spacing: 0.02em;
+  gap: 3px; background: none; border: none; cursor: pointer; padding: 6px 2px;
+  color: var(--ink-3); font-family: var(--sans); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.01em; min-width: 0;
 }
+.mobile-tab span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mobile-tab.active { color: var(--accent); }
 .mobile-tab.active svg { stroke: var(--accent); }
-.mobile-fab-wrap {
-  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  padding: 0 6px; margin-top: -20px;
-}
-.mobile-fab {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--accent); color: var(--paper); border: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(31, 60, 110, 0.38);
-  transition: transform .12s, box-shadow .12s;
-}
-.mobile-fab:active { transform: scale(0.94); box-shadow: 0 2px 8px rgba(31, 60, 110, 0.22); }
-.mobile-fab.active { background: color-mix(in oklab, var(--accent) 85%, black); }
 
 /* ─── Mobile Responsive ≤768px ──────────────────────────────────── */
 @media (max-width: 768px) {

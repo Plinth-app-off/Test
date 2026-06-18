@@ -91,16 +91,19 @@ All in `src/main.jsx`. Each context is consumed via its own hook:
 | created_at | timestamptz | |
 
 ### `vendor_payments`
-| column | type |
-|--------|------|
-| id | uuid PK |
-| user_id | uuid |
-| vendor_id | uuid |
-| client_id | uuid |
-| date | date |
-| amount | numeric |
-| note | text |
-| created_at | timestamptz |
+| column | type | notes |
+|--------|------|-------|
+| id | uuid PK | |
+| user_id | uuid | |
+| vendor_id | uuid | |
+| client_id | uuid | |
+| date | date | |
+| amount | numeric | |
+| roundoff | numeric | write-off applied at payment; reduces vendor owed balance (NOT NULL default 0) |
+| note | text | |
+| created_at | timestamptz | |
+
+Vendor owed balance = supplied − Σ(amount) − Σ(roundoff). Roundoff is vendor-side only (not on client totals, dashboard ledger, or expense loggers).
 
 ### `profiles`
 | column | type |

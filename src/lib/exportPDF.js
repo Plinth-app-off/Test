@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { today } from './utils.js';
 
 const BRAND = 'Plinth';
 const MONO = 'courier';
@@ -73,7 +74,7 @@ export function exportExpensesPDF({ expenses, vendors, clients, filterLabel = 'A
   });
 
   footer(doc);
-  doc.save(`expenses_${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`expenses_${today()}.pdf`);
 }
 
 export function exportGeneralExpensesPDF({ expenses, clients, filterLabel = 'All entries' }) {
@@ -106,7 +107,7 @@ export function exportGeneralExpensesPDF({ expenses, clients, filterLabel = 'All
   });
 
   footer(doc);
-  doc.save(`overhead_${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`overhead_${today()}.pdf`);
 }
 
 export function exportPaymentsPDF({ payments, vendors, clients, filterLabel = 'All entries' }) {
@@ -140,7 +141,7 @@ export function exportPaymentsPDF({ payments, vendors, clients, filterLabel = 'A
   });
 
   footer(doc);
-  doc.save(`payments_${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`payments_${today()}.pdf`);
 }
 
 export function exportVendorPDF({ vendor, expenses, payments, clients, periodLabel, companyName = '', userEmail = '' }) {
@@ -252,7 +253,8 @@ export function exportVendorPDF({ vendor, expenses, payments, clients, periodLab
   // ── Balance summary ───────────────────────────────────────
   const totalGiven = expenses.reduce((a, b) => a + Number(b.amount), 0);
   const totalPaid = payments.reduce((a, b) => a + Number(b.amount), 0);
-  const balance = totalGiven - totalPaid;
+  const totalRoundoff = payments.reduce((a, b) => a + (Number(b.roundoff) || 0), 0);
+  const balance = totalGiven - totalPaid - totalRoundoff;
 
   const summaryY = Math.min(curY, doc.internal.pageSize.height - 40);
   doc.setDrawColor(200);
@@ -261,9 +263,13 @@ export function exportVendorPDF({ vendor, expenses, payments, clients, periodLab
   const cols = [
     { label: 'Total Supplied', value: `\u20B9 ${Math.round(totalGiven).toLocaleString('en-IN')}` },
     { label: 'Total Paid', value: `\u20B9 ${Math.round(totalPaid).toLocaleString('en-IN')}` },
+    ...(totalRoundoff
+      ? [{ label: 'Roundoff', value: `\u20B9 ${Math.round(totalRoundoff).toLocaleString('en-IN')}` }]
+      : []),
     { label: balance > 0 ? 'Still Owed' : balance < 0 ? 'Overpaid' : 'Settled', value: `\u20B9 ${Math.round(Math.abs(balance)).toLocaleString('en-IN')}` },
   ];
-  const colW = (pageW - 28) / 3;
+  const lastIdx = cols.length - 1;
+  const colW = (pageW - 28) / cols.length;
   cols.forEach((col, i) => {
     const x = 14 + i * colW;
     doc.setFont('helvetica', 'normal');
@@ -272,7 +278,11 @@ export function exportVendorPDF({ vendor, expenses, payments, clients, periodLab
     doc.text(col.label.toUpperCase(), x, summaryY + 6);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
-    doc.setTextColor(balance > 0 && i === 2 ? 180 : balance < 0 && i === 2 ? 60 : 0, balance < 0 && i === 2 ? 100 : 0, 0);
+    doc.setTextColor(
+      balance > 0 && i === lastIdx ? 180 : balance < 0 && i === lastIdx ? 60 : 0,
+      balance < 0 && i === lastIdx ? 100 : 0,
+      0
+    );
     doc.text(col.value, x, summaryY + 13);
     doc.setTextColor(0);
   });
@@ -280,5 +290,5 @@ export function exportVendorPDF({ vendor, expenses, payments, clients, periodLab
   footer(doc);
 
   const safeName = (vendor?.name || 'all-vendors').replace(/\s+/g, '-').toLowerCase();
-  doc.save(`${safeName}_${new Date().toISOString().slice(0, 10)}.pdf`);
+  doc.save(`${safeName}_${today()}.pdf`);
 }

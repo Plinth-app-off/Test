@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase.js';
 import { useAuth } from './AuthContext.jsx';
-import { withinRange, daysBetween } from '../lib/utils.js';
+import { withinRange, daysBetween, today } from '../lib/utils.js';
 
 const DataCtx = createContext(null);
 
@@ -243,6 +243,10 @@ export function DataProvider({ children }) {
       vendorPayments
         .filter((p) => p.vendor_id === vid)
         .reduce((a, b) => a + b.amount, 0),
+    getVendorRoundoff: (vid) =>
+      vendorPayments
+        .filter((p) => p.vendor_id === vid)
+        .reduce((a, b) => a + (Number(b.roundoff) || 0), 0),
     getClientAllExpenses: (cid) => ({
       vendor: expenses.filter((e) => e.client_id === cid),
       general: generalExpenses.filter((e) => e.client_id === cid),
@@ -254,7 +258,7 @@ export function DataProvider({ children }) {
         .reduce((a, b) => a + b.amount, 0),
     getCellSeries: (vid, cid, days = 30) => {
       const arr = new Array(days).fill(0);
-      const end = new Date().toISOString().slice(0, 10);
+      const end = today();
       expenses
         .filter((e) => e.vendor_id === vid && e.client_id === cid)
         .forEach((e) => {
