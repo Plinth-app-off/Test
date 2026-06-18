@@ -441,25 +441,13 @@ body.printing .app { display: none; }
 }
 .mobile-tab {
   flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 3px; background: none; border: none; cursor: pointer; padding: 6px 4px;
-  color: var(--ink-3); font-family: var(--sans); font-size: 9.5px; font-weight: 500;
-  letter-spacing: 0.02em;
+  gap: 3px; background: none; border: none; cursor: pointer; padding: 6px 2px;
+  color: var(--ink-3); font-family: var(--sans); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.01em; min-width: 0;
 }
+.mobile-tab span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mobile-tab.active { color: var(--accent); }
 .mobile-tab.active svg { stroke: var(--accent); }
-.mobile-fab-wrap {
-  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  padding: 0 6px; margin-top: -20px;
-}
-.mobile-fab {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--accent); color: var(--paper); border: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(58, 63, 143, 0.38);
-  transition: transform .12s, box-shadow .12s;
-}
-.mobile-fab:active { transform: scale(0.94); box-shadow: 0 2px 8px rgba(58, 63, 143, 0.22); }
-.mobile-fab.active { background: color-mix(in oklab, var(--accent) 85%, black); }
 
 /* ─── Mobile Responsive ≤768px ──────────────────────────────────── */
 @media (max-width: 768px) {

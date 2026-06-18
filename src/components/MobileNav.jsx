@@ -13,8 +13,8 @@ const PAGE_LABELS = {
 
 const TABS = [
   { id: 'dashboard', Icon: Icons.Dashboard,  label: 'Ledger' },
+  { id: 'log',       Icon: Icons.FilePlus,   label: 'Log'    },
   { id: 'payments',  Icon: Icons.CreditCard, label: 'Pay'    },
-  null,
   { id: 'general',   Icon: Icons.Receipt,    label: 'Overhead' },
   { id: 'clients',   Icon: Icons.Users,      label: 'Clients' },
   { id: 'vendors',   Icon: Icons.HardHat,    label: 'Trades' },
@@ -68,29 +68,17 @@ export default function MobileNav({ page, setPage, onSignOut, userEmail = '', co
       </div>
 
       <div className="mobile-tabbar">
-        {TABS.map((tab, i) =>
-          tab === null ? (
-            <div key="fab" className="mobile-fab-wrap">
-              <button
-                className={'mobile-fab' + (page === 'log' ? ' active' : '')}
-                onClick={() => setPage('log')}
-                aria-label="Log expense"
-              >
-                <Icons.Plus size={24} />
-              </button>
-            </div>
-          ) : (
-            <button
-              key={tab.id}
-              type="button"
-              className={'mobile-tab' + (page === tab.id ? ' active' : '')}
-              onClick={() => setPage(tab.id)}
-            >
-              <tab.Icon size={20} />
-              <span>{tab.label}</span>
-            </button>
-          )
-        )}
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            className={'mobile-tab' + (page === tab.id ? ' active' : '')}
+            onClick={() => setPage(tab.id)}
+          >
+            <tab.Icon size={20} />
+            <span>{tab.label}</span>
+          </button>
+        ))}
       </div>
     </>
   );
