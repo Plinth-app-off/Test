@@ -1,7 +1,7 @@
 :root {
   --paper: #f4f4f2; --paper-2: #eaeae7; --paper-3: #e0e0dc;
   --rule: #d5d5d0; --rule-soft: #e4e4e0;
-  --ink: #1a1a1c; --ink-2: #3c3c40; --ink-3: #646469; --ink-4: #8a8a90;
+  --ink: #1a1a1c; --ink-2: #222225; --ink-3: #3a3a3e; --ink-4: #5e5e64;
   --red-ink: #c0392b; --green-ink: #256d4a; --amber-ink: #8a610f;
   --purple-ink: #6a3f9c; --teal-ink: #0f6e72; --coral-ink: #c2502f;
   --accent: #3a3f8f; --accent-soft: #dcdef0; --stamp: #c0392b;
